@@ -1,6 +1,13 @@
 import './Login.scss'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
+    let navigate = useNavigate()
+
+    const handleCreateNewAccount = () => {
+        navigate('/register')
+    }
+
     return (
         <div className="Login">
             <div className="container">
@@ -25,9 +32,13 @@ function Login() {
                         <input className='form-control rounded-pill' type='text' placeholder='Enter username' />
                         <input className='form-control rounded-pill' type='password' placeholder='Enter password' />
                         <button className='btn login-btn bg-btn rounded-pill'>Login</button>
-                        <span className='text-center'>Forgot your password?</span>
+                        <span className='text-center'>
+                            <a className='forgot-pass' href='#'>Forgot your password?</a>
+                        </span>
                         <hr />
-                        <button className='btn create-btn rounded-pill border'>Create New Account</button>
+                        <button className='btn create-btn rounded-pill border' onClick={() => handleCreateNewAccount()}>
+                            Create New Account
+                        </button>
                     </div>
                 </div>
             </div>
