@@ -11,9 +11,17 @@ function Register() {
     }
 
     useEffect(() => {
+        let isMounted = true
+
         axios.get("http://localhost:8080/api/test-api").then(data => {
-            console.log(data)
+            if (isMounted) {
+                console.log(data)
+            }
         })
+
+        return () => {
+            isMounted = false
+        }
     }, [])
 
     return (
