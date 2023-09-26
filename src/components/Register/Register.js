@@ -1,3 +1,5 @@
+import axios from 'axios'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Register.scss'
 
@@ -8,12 +10,18 @@ function Register() {
         navigate('/login')
     }
 
+    useEffect(() => {
+        axios.get("https://reqres.in/api/users?page=2").then(data => {
+            console.log(data)
+        })
+    }, [])
+
     return (
         <div className="Register">
             <div className="container">
                 <div className="row px-3 px-sm-0">
                     <div className="content-left col-12 d-none col-sm-7 d-sm-block">
-                        <span class="icon-brand material-symbols-outlined">
+                        <span className="icon-brand material-symbols-outlined">
                             bolt
                         </span>
                         <div className='brand text-center mb-3'>VenusakaVXT</div>
@@ -24,7 +32,7 @@ function Register() {
                     </div>
                     <div className="content-right border col-sm-5 col-12 d-flex flex-column gap-2 px-sm-3 py-3">
                         <div className='brand-wrap d-sm-none'>
-                            <span class="icon-brand material-symbols-outlined">
+                            <span className="icon-brand material-symbols-outlined">
                                 bolt
                             </span>
                             <div className='brand text-center mb-3'>VenusakaVXT</div>

@@ -13,7 +13,7 @@ function Login() {
             <div className="container">
                 <div className="row px-3 px-sm-0">
                     <div className="content-left col-12 d-none col-sm-7 d-sm-block">
-                        <span class="icon-brand material-symbols-outlined">
+                        <span className="icon-brand material-symbols-outlined">
                             bolt
                         </span>
                         <div className='brand text-center mb-3'>VenusakaVXT</div>
@@ -24,7 +24,7 @@ function Login() {
                     </div>
                     <div className="content-right border col-sm-5 col-12 d-flex flex-column gap-3 px-sm-3 py-4">
                         <div className='brand-wrap d-sm-none'>
-                            <span class="icon-brand material-symbols-outlined">
+                            <span className="icon-brand material-symbols-outlined">
                                 bolt
                             </span>
                             <div className='brand text-center mb-3'>VenusakaVXT</div>
