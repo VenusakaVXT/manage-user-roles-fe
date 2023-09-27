@@ -10,6 +10,15 @@ function Register() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    
+    const defaultValidInputs = {
+        isValidEmail: true,
+        isValidPhoneNumber: true,
+        isValidUsername: true,
+        isValidPassword: true,
+        isValidConfirmPassword: true
+    }
+    const [validate, setValidate] = useState(defaultValidInputs)
 
     useEffect(() => {
         // let isMounted = true
@@ -24,7 +33,7 @@ function Register() {
         //     isMounted = false
         // }
     }, [])
-    
+
     let navigate = useNavigate()
 
     const handleLogin = () => {
@@ -38,27 +47,34 @@ function Register() {
     }
 
     const isValidInputs = () => {
+        setValidate(defaultValidInputs)
+
         const regexEmail = /\S+@\S+\.\S+/
         const regexPhoneNumber = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/
 
         if (!email || !regexEmail.test(email)) {
             toast.error("Invalid email, may be missing @, gmail, .com!!!")
+            setValidate({ ...defaultValidInputs, isValidEmail: false })
             return false
         }
         if (!phoneNumber || !regexPhoneNumber.test(phoneNumber)) {
             toast.error("Invalid phone number!!!")
+            setValidate({ ...defaultValidInputs, isValidPhoneNumber: false })
             return false
         }
         if (!username) {
             toast.error("Invalid username!!!")
+            setValidate({ ...defaultValidInputs, isValidUsername: false })
             return false
         }
         if (!password) {
             toast.error("Invalid password!!!")
+            setValidate({ ...defaultValidInputs, isValidPassword: false })
             return false
         }
         if (confirmPassword != password) {
             toast.error("The authentication password is not the same as the password above!!!")
+            setValidate({ ...defaultValidInputs, isValidConfirmPassword: false })
             return false
         }
         else {
@@ -91,31 +107,46 @@ function Register() {
 
                         <div className='from-group'>
                             <label>Email adress:</label>
-                            <input className='form-control rounded-pill' type='text' placeholder='Enter email' 
+                            <input
+                                className={validate.isValidEmail ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'}
+                                type='text'
+                                placeholder='Enter email'
                                 value={email} onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className='from-group'>
                             <label>Number phone:</label>
-                            <input className='form-control rounded-pill' type='text' placeholder='Enter phone' 
+                            <input
+                                className={validate.isValidPhoneNumber ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'}
+                                type='text'
+                                placeholder='Enter phone'
                                 value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}
                             />
                         </div>
                         <div className='from-group'>
                             <label>Username:</label>
-                            <input className='form-control rounded-pill' type='text' placeholder='Enter username' 
+                            <input
+                                className={validate.isValidUsername ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'}
+                                type='text'
+                                placeholder='Enter username'
                                 value={username} onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
                         <div className='from-group'>
                             <label>Password:</label>
-                            <input className='form-control rounded-pill' type='password' placeholder='Enter password' 
+                            <input
+                                className={validate.isValidPassword ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'}
+                                type='password'
+                                placeholder='Enter password'
                                 value={password} onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <div className='from-group'>
                             <label>Re-enter password:</label>
-                            <input className='form-control rounded-pill' type='password' placeholder='Re-enter password' 
+                            <input
+                                className={validate.isValidConfirmPassword ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'}
+                                type='password'
+                                placeholder='Re-enter password'
                                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                         </div>
