@@ -32,9 +32,39 @@ function Register() {
     }
 
     const handleRegister = () => {
-        toast("HAHAHAHAHAHAHHAH")
+        isValidInputs()
         let userData = { email, phoneNumber, username, password }
         console.log(userData)
+    }
+
+    const isValidInputs = () => {
+        const regexEmail = /\S+@\S+\.\S+/
+        const regexPhoneNumber = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/
+
+        if (!email || !regexEmail.test(email)) {
+            toast.error("Invalid email, may be missing @, gmail, .com!!!")
+            return false
+        }
+        if (!phoneNumber || !regexPhoneNumber.test(phoneNumber)) {
+            toast.error("Invalid phone number!!!")
+            return false
+        }
+        if (!username) {
+            toast.error("Invalid username!!!")
+            return false
+        }
+        if (!password) {
+            toast.error("Invalid password!!!")
+            return false
+        }
+        if (confirmPassword != password) {
+            toast.error("The authentication password is not the same as the password above!!!")
+            return false
+        }
+        else {
+            toast.success("Register success <3<3<3")
+            return true
+        }
     }
 
     return (
