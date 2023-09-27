@@ -1,28 +1,39 @@
 import axios from 'axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Register.scss'
 
 function Register() {
+    const [email, setEmail] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+
+    useEffect(() => {
+        // let isMounted = true
+
+        // axios.get("http://localhost:8080/api/test-api").then(data => {
+        //     if (isMounted) {
+        //         console.log(data)
+        //     }
+        // })
+
+        // return () => {
+        //     isMounted = false
+        // }
+    }, [])
+    
     let navigate = useNavigate()
 
     const handleLogin = () => {
         navigate('/login')
     }
 
-    useEffect(() => {
-        let isMounted = true
-
-        axios.get("http://localhost:8080/api/test-api").then(data => {
-            if (isMounted) {
-                console.log(data)
-            }
-        })
-
-        return () => {
-            isMounted = false
-        }
-    }, [])
+    const handleRegister = () => {
+        let userData = { email, phoneNumber, username, password }
+        console.log(userData)
+    }
 
     return (
         <div className="Register">
@@ -48,27 +59,39 @@ function Register() {
 
                         <div className='from-group'>
                             <label>Email adress:</label>
-                            <input className='form-control rounded-pill' type='text' placeholder='Enter email'/>
+                            <input className='form-control rounded-pill' type='text' placeholder='Enter email' 
+                                value={email} onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                         <div className='from-group'>
                             <label>Number phone:</label>
-                            <input className='form-control rounded-pill' type='text' placeholder='Enter phone'/>
+                            <input className='form-control rounded-pill' type='text' placeholder='Enter phone' 
+                                value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
                         </div>
                         <div className='from-group'>
                             <label>Username:</label>
-                            <input className='form-control rounded-pill' type='text' placeholder='Enter username'/>
+                            <input className='form-control rounded-pill' type='text' placeholder='Enter username' 
+                                value={username} onChange={(e) => setUsername(e.target.value)}
+                            />
                         </div>
                         <div className='from-group'>
                             <label>Password:</label>
-                            <input className='form-control rounded-pill' type='password' placeholder='Enter password'/>
+                            <input className='form-control rounded-pill' type='password' placeholder='Enter password' 
+                                value={password} onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
                         <div className='from-group'>
                             <label>Re-enter password:</label>
-                            <input className='form-control rounded-pill' type='password' placeholder='Re-enter password'/>
+                            <input className='form-control rounded-pill' type='password' placeholder='Re-enter password' 
+                                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
                         </div>
 
 
-                        <button className='btn register-btn bg-btn rounded-pill'>Register</button>
+                        <button className='btn register-btn bg-btn rounded-pill' onClick={() => handleRegister()}>
+                            Register
+                        </button>
                         <hr />
                         <button className='btn create-btn rounded-pill border' onClick={() => handleLogin()}>
                             You already have an account ...?
