@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import './Register.scss'
 
 function Register() {
@@ -31,6 +32,7 @@ function Register() {
     }
 
     const handleRegister = () => {
+        toast("HAHAHAHAHAHAHHAH")
         let userData = { email, phoneNumber, username, password }
         console.log(userData)
     }

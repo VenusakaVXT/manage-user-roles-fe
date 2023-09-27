@@ -4,6 +4,8 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.scss'
 import Nav from './components/Navigation/Nav'
 import Login from './components/Login/Login'
@@ -27,6 +29,19 @@ function App() {
         </Routes>
       </div>
 
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
     </Router>
   )
 }
@@ -48,7 +63,7 @@ function ContactPage() {
 }
 
 function NotFoundPage() {
-  return <h3>404 not found!!!</h3>
+  return <h3 style={{color: 'red'}}>404 not found!!!</h3>
 }
 
 export default App
