@@ -10,7 +10,7 @@ function Register() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-    
+
     const defaultValidInputs = {
         isValidEmail: true,
         isValidPhoneNumber: true,
@@ -21,17 +21,20 @@ function Register() {
     const [validate, setValidate] = useState(defaultValidInputs)
 
     useEffect(() => {
-        // let isMounted = true
+        let isMounted = true
 
-        // axios.get("http://localhost:8080/api/test-api").then(data => {
-        //     if (isMounted) {
-        //         console.log(data)
-        //     }
-        // })
+        // GET METHOD
+        axios.get("http://localhost:8080/api/v1/test-api")
+            .then(data => {
+                if (isMounted) {
+                    console.log(data)
+                }
+            })
+            .catch(error => console.error(error))
 
-        // return () => {
-        //     isMounted = false
-        // }
+        return () => {
+            isMounted = false
+        }
     }, [])
 
     let navigate = useNavigate()
@@ -41,9 +44,12 @@ function Register() {
     }
 
     const handleRegister = () => {
-        isValidInputs()
-        let userData = { email, phoneNumber, username, password }
-        console.log(userData)
+        let check = isValidInputs()
+        if (check === true) {
+            axios.post("http://localhost:8080/api/v1/register", {
+                email, phoneNumber, username, password
+            })
+        }
     }
 
     const isValidInputs = () => {
@@ -72,7 +78,7 @@ function Register() {
             setValidate({ ...defaultValidInputs, isValidPassword: false })
             return false
         }
-        if (confirmPassword != password) {
+        if (confirmPassword !== password) {
             toast.error("The authentication password is not the same as the password above!!!")
             setValidate({ ...defaultValidInputs, isValidConfirmPassword: false })
             return false
