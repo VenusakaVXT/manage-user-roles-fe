@@ -6,7 +6,7 @@ import './Register.scss'
 
 function Register() {
     const [email, setEmail] = useState("")
-    const [phoneNumber, setPhoneNumber] = useState("")
+    const [numPhone, setPhoneNumber] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -47,7 +47,7 @@ function Register() {
         let check = isValidInputs()
         if (check === true) {
             axios.post("http://localhost:8080/api/v1/register", {
-                email, phoneNumber, username, password
+                email, numPhone, username, password
             })
         }
     }
@@ -63,7 +63,7 @@ function Register() {
             setValidate({ ...defaultValidInputs, isValidEmail: false })
             return false
         }
-        if (!phoneNumber || !regexPhoneNumber.test(phoneNumber)) {
+        if (!numPhone || !regexPhoneNumber.test(numPhone)) {
             toast.error("Invalid phone number!!!")
             setValidate({ ...defaultValidInputs, isValidPhoneNumber: false })
             return false
@@ -126,7 +126,7 @@ function Register() {
                                 className={validate.isValidPhoneNumber ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'}
                                 type='text'
                                 placeholder='Enter phone'
-                                value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}
+                                value={numPhone} onChange={(e) => setPhoneNumber(e.target.value)}
                             />
                         </div>
                         <div className='from-group'>
