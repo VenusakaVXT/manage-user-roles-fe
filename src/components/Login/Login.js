@@ -1,11 +1,41 @@
 import './Login.scss'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { userLogin } from '../../service/userService'
 
 function Login() {
     let navigate = useNavigate()
 
+    const [accName, setAccName] = useState("")
+    const [password, setPassword] = useState("")
+
+    const defaultValidInputs = {
+        isValidAccName: true,
+        isValidPassword: true
+    }
+    const [validate, setValidate] = useState(defaultValidInputs)
+
     const handleCreateNewAccount = () => {
         navigate('/register')
+    }
+
+    const handleLogin = async () => {
+        setValidate(defaultValidInputs)
+
+        if (!accName) {
+            setValidate({...defaultValidInputs, isValidAccName: false})
+            toast.error("Please enter your email or phone number!!!")
+            return
+        }
+
+        if (!password) {
+            setValidate({...defaultValidInputs, isValidPassword: false})
+            toast.error("Please enter your password!!!")
+            return
+        }
+
+        await userLogin(accName, password)
     }
 
     return (
@@ -29,9 +59,27 @@ function Login() {
                             </span>
                             <div className='brand text-center mb-3'>VenusakaVXT</div>
                         </div>
-                        <input className='form-control rounded-pill' type='text' placeholder='Enter username' />
-                        <input className='form-control rounded-pill' type='password' placeholder='Enter password' />
-                        <button className='btn login-btn bg-btn rounded-pill'>Login</button>
+                        <input
+                            className={
+                                validate.isValidAccName ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'
+                            }
+                            type='text'
+                            placeholder='Enter username'
+                            value={accName}
+                            onChange={(e) => setAccName(e.target.value)}
+                        />
+                        <input
+                            className={
+                                validate.isValidPassword ? 'form-control rounded-pill' : 'form-control rounded-pill is-invalid'
+                            }
+                            type='password'
+                            placeholder='Enter password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button className='btn login-btn bg-btn rounded-pill' onClick={() => handleLogin()}>
+                            Login
+                        </button>
                         <span className='text-center'>
                             <a className='forgot-pass' href='#'>Forgot your password?</a>
                         </span>
