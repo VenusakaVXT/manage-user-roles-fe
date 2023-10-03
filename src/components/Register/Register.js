@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { registerNewUser } from '../../service/userService'
 import './Register.scss'
 
 function Register() {
@@ -43,12 +44,18 @@ function Register() {
         navigate('/login')
     }
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         let check = isValidInputs()
         if (check === true) {
-            axios.post("http://localhost:8080/api/v1/register", {
-                email, numPhone, username, password
-            })
+            let response = await registerNewUser( email, numPhone, username, password )
+            let serverData = response.data
+
+            if (+serverData.errCode === 0) { // +: Convert string to integer
+                toast.success(serverData.errMessage)
+                navigate('/login')
+            } else {
+                toast.error(serverData.errMessage)
+            }
         }
     }
 
@@ -83,10 +90,7 @@ function Register() {
             setValidate({ ...defaultValidInputs, isValidConfirmPassword: false })
             return false
         }
-        else {
-            toast.success("Register success <3<3<3")
-            return true
-        }
+        else return true
     }
 
     return (
