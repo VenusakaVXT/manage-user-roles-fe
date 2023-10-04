@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,17 +6,31 @@ import {
 } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import _ from 'lodash'
 import './App.scss'
 import Nav from './components/Navigation/Nav'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
+import Users from './components/Users/Users'
 
 function App() {
+  const [account, setAccount] = useState("")
+
+  useEffect(() => {
+    let session = sessionStorage.getItem('account')
+    if (session) {
+      setAccount(JSON.parse(session))
+    }
+  }, [])
+
   return (
     <Router>
 
       <div className='App'>
-        {/* <Nav /> */}
+        {
+          account && !_.isEmpty(account) && account.isAuthenticated
+            && <Nav />
+        }
 
         <Routes>
           <Route path='/' element={<HomePage />} />
@@ -25,6 +39,7 @@ function App() {
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/users' element={<Users />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </div>
@@ -63,7 +78,7 @@ function ContactPage() {
 }
 
 function NotFoundPage() {
-  return <h3 style={{color: 'red'}}>404 not found!!!</h3>
+  return <h3 style={{ color: 'red' }}>404 not found!!!</h3>
 }
 
 export default App

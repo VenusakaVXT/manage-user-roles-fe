@@ -35,7 +35,20 @@ function Login() {
             return
         }
 
-        await userLogin(accName, password)
+        let response = await userLogin(accName, password)
+
+        if (response && response.data && +response.data.errCode === 0) {
+            let data = {
+                isAuthenticated: true,
+                token: 'fake token...'
+            }
+            sessionStorage.setItem('account', JSON.stringify(data))
+            navigate('/users')
+        }
+
+        if (response && response.data && +response.data.errCode !== 0) {
+            toast.error(response.data.errMessage)
+        }
     }
 
     return (
