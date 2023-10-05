@@ -47,7 +47,7 @@ function Register() {
     const handleRegister = async () => {
         let check = isValidInputs()
         if (check === true) {
-            let response = await registerNewUser( email, numPhone, username, password )
+            let response = await registerNewUser(email, numPhone, username, password)
             let serverData = response.data
 
             if (+serverData.errCode === 0) { // +: Convert string to integer

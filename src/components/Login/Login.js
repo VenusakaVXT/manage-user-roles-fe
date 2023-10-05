@@ -44,10 +44,19 @@ function Login() {
             }
             sessionStorage.setItem('account', JSON.stringify(data))
             navigate('/users')
+
+            // Temporarily resolve the bug
+            window.location.reload()
         }
 
         if (response && response.data && +response.data.errCode !== 0) {
             toast.error(response.data.errMessage)
+        }
+    }
+
+    const handlePressEnter = (e) => {
+        if (e.keyCode == 13) {
+            handleLogin()
         }
     }
 
@@ -80,6 +89,7 @@ function Login() {
                             placeholder='Enter username'
                             value={accName}
                             onChange={(e) => setAccName(e.target.value)}
+                            onKeyDown={(e) => handlePressEnter(e)}
                         />
                         <input
                             className={
@@ -89,6 +99,7 @@ function Login() {
                             placeholder='Enter password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyDown={(e) => handlePressEnter(e)}
                         />
                         <button className='btn login-btn bg-btn rounded-pill' onClick={() => handleLogin()}>
                             Login
