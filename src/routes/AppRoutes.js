@@ -1,46 +1,30 @@
-import { useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { getAuth } from 'firebase/auth'
+import { Switch, Route } from 'react-router-dom'
 import Login from '../components/Login/Login'
 import Register from '../components/Register/Register'
 import Users from '../components/Users/Users'
+import Projects from '../components/Projects/Projects'
+import PrivateRoutes from './PrivateRoutes'
 
-function HomePage() {
-    return <h3>Home Page</h3>
-}
-
-function NotFoundPage() {
+const NotFoundPage = () => {
     return <h3 style={{ color: 'red' }}>404 not found!!!</h3>
 }
 
-function RequireAuth({ children, redirectTo }) {
-    let isAuthenticated = getAuth()
-    return isAuthenticated ? children : <Navigate to={redirectTo} />
-}
-
 const AppRoutes = (props) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-
     return (
-        <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route
-                path='/users'
-                element={
-                    <RequireAuth redirectTo='/login'>
-                        <Users />
-                    </RequireAuth>
-                }
-            />
-            {/* <Route path="/users" element={<PrivateRoutes component={Users} 
-                isAuthenticated={isAuthenticated} />} /> */}
-            {/* <PrivateRoutes path='/users' element={<Users />} /> */}
-            {/* <Route path='/users' element={<Users />} /> */}
-            {/* <Route path='/projects' element={<Projects />} /> */}
-            <Route path='*' element={<NotFoundPage />} />
-        </Routes>
+        <Switch>
+            <Route exact path="/" component={() => <h3>Home Page</h3>} />
+            <Route path="/about" component={() => <h3>About Page</h3>} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+
+            {/* Authorized route */}
+            <PrivateRoutes path="/users" component={Users} />
+            <PrivateRoutes path="/projects" component={Projects} />
+
+            {/* The component is rendered when entering 
+                addresses that have not been set up before */}
+            <Route path="*" component={NotFoundPage} />
+        </Switch>
     )
 }
 

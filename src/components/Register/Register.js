@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { registerNewUser } from '../../service/userService'
 import './Register.scss'
 
 function Register() {
+    let history = useHistory()
+    
     const [email, setEmail] = useState("")
     const [numPhone, setPhoneNumber] = useState("")
     const [username, setUsername] = useState("")
@@ -20,6 +22,13 @@ function Register() {
         isValidConfirmPassword: true
     }
     const [validate, setValidate] = useState(defaultValidInputs)
+
+    useEffect(() => {
+        let session = sessionStorage.getItem('account')
+        if (session) {
+            history.push('/')
+        }
+    }, [])
 
     useEffect(() => {
         let isMounted = true
@@ -38,10 +47,8 @@ function Register() {
         }
     }, [])
 
-    let navigate = useNavigate()
-
     const handleLogin = () => {
-        navigate('/login')
+        history.push('/login')
     }
 
     const handleRegister = async () => {
@@ -52,7 +59,7 @@ function Register() {
 
             if (+serverData.errCode === 0) { // +: Convert string to integer
                 toast.success(serverData.errMessage)
-                navigate('/login')
+                history.push('/login')
             } else {
                 toast.error(serverData.errMessage)
             }

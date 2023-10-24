@@ -1,16 +1,20 @@
 import { useEffect } from 'react'
-import { Navigate, Route } from 'react-router-dom'
+import { useHistory, Route } from 'react-router-dom'
 
-const PrivateRoutes = ({ component: Component, isAuthenticated, ...rest }) => {
+const PrivateRoutes = (props) => {
+    let history = useHistory()
+
+    useEffect(() => {
+        let session = sessionStorage.getItem('account')
+        if (!session) {
+            history.push('/login')
+        }
+    }, [])
+
     return (
-        <Route
-            {...rest}
-            element={
-                isAuthenticated ? <Component {...rest} />
-                    :
-                    <Navigate to={{ pathname: '/login', state: { from: rest.location } }} />
-            }
-        />
+        <>
+            <Route path={props.path} component={props.component}/>
+        </>
     )
 }
 

@@ -1,11 +1,11 @@
 import './Login.scss'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { userLogin } from '../../service/userService'
 
 function Login() {
-    let navigate = useNavigate()
+    let history = useHistory()
 
     const [accName, setAccName] = useState("")
     const [password, setPassword] = useState("")
@@ -16,8 +16,15 @@ function Login() {
     }
     const [validate, setValidate] = useState(defaultValidInputs)
 
+    useEffect(() => {
+        let session = sessionStorage.getItem('account')
+        if (session) {
+            history.push('/')
+        }
+    }, [])
+
     const handleCreateNewAccount = () => {
-        navigate('/register')
+        history.push('/register')
     }
 
     const handleLogin = async () => {
@@ -43,7 +50,7 @@ function Login() {
                 token: 'fake token...'
             }
             sessionStorage.setItem('account', JSON.stringify(data))
-            navigate('/users')
+            history.push('/users')
 
             // Temporarily resolve the bug
             window.location.reload()

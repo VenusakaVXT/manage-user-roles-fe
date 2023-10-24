@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import _ from 'lodash'
 import './App.scss'
 import Nav from './components/Navigation/Nav'
 import AppRoutes from './routes/AppRoutes'
@@ -19,12 +18,9 @@ function App() {
 
   return (
     <div className='App'>
-      <Router>
+      <BrowserRouter forceRefresh={true}>
         <div className='App-header'>
-          {
-            account && !_.isEmpty(account) && account.isAuthenticated
-            && <Nav />
-          }
+          <Nav />
         </div>
 
         <div className='App-container'>
@@ -43,7 +39,7 @@ function App() {
           pauseOnHover
           theme="light"
         />
-      </Router>
+      </BrowserRouter>
     </div>
   )
 }
