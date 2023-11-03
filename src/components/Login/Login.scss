@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 @import url('https://fonts.googleapis.com/css2?family=Mandali&family=Pacifico&display=swap');
-
-$bg: #208490;
-$font: 'Mandali', sans-serif;
+@import '../../scss/variable';
 
 .material-symbols-outlined {
     font-variation-settings:
@@ -41,10 +39,10 @@ $font: 'Mandali', sans-serif;
     .content-right {
         width: 450px;
         border-radius: 10px;
-        box-shadow: 
-        0px 0.8px 2px rgba(0, 0, 0, .032),
-        0px 2.7px 6.7px rgba(0, 0, 0, .048),
-        0px 12px 30px rgba(0, 0, 0, .08);
+        box-shadow:
+            0px 0.8px 2px rgba(0, 0, 0, .032),
+            0px 2.7px 6.7px rgba(0, 0, 0, .048),
+            0px 12px 30px rgba(0, 0, 0, .08);
     }
 
     .content-right .icon-brand {
@@ -74,7 +72,7 @@ $font: 'Mandali', sans-serif;
     .border {
         border: 1px solid #d9dbe3;
     }
-    
+
     .bg-btn {
         color: #fff;
         background: $bg;

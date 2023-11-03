@@ -1,0 +1,12 @@
+@import '../../scss/variable';
+
+.manage-user-container {
+    .general-btn {
+        background: $bg;
+        color: #fff;
+        &:hover {
+            background: $bg-hover;
+            color: #fff;
+        }
+    }
+}

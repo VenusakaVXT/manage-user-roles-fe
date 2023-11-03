@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import './App.scss'
+import './scss/App.scss'
 import Nav from './components/Navigation/Nav'
 import AppRoutes from './routes/AppRoutes'
 
